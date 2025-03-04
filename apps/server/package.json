@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev ./src/index.ts",
+    "build": "vite build",
+    "preview": "wrangler pages dev",
+    "deploy": "bun run build && wrangler pages deploy"
+  },
+  "dependencies": {
+    "hono": "^4.7.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "@hono/vite-build": "^1.2.0",
+    "@hono/vite-dev-server": "^0.18.2",
+    "vite": "^6.1.1",
+    "wrangler": "^3.109.2"
+  }
+}
