@@ -18,7 +18,8 @@
   "r2_buckets": [
     {
       "binding": "BUCKET",
-      "bucket_name": "it-build-file"
+      "bucket_name": "it-build-file",
+      "preview_bucket_name":"it-build-file"
     }
   ],
   "d1_databases": [
