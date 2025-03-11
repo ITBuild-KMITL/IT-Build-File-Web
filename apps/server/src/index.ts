@@ -1,12 +1,24 @@
 import { Hono } from 'hono'
 import { drizzle } from 'drizzle-orm/d1';
+import { authMiddleware } from './middleware/authMiddleware';
+import { preproRoute } from './routes/prepro';
 
-const app = new Hono<{Bindings:Env}>()
+export interface Variables {
+  userid:String
+}
+
+const app = new Hono<{Bindings:Env, Variables : Variables}>()
+
+// app.use(authMiddleware)
 
 
 app.get('/', async(c) => {
+  console.log(c.get("userid"));
+  
   return c.json({ message: 'Hello World' })
 })
+
+app.route('/prepro', preproRoute)
 
 app.post('/', async(c) => {
   const formData = c.req.formData()
