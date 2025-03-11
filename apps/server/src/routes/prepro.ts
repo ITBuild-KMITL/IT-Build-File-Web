@@ -28,7 +28,7 @@ preproRoute.use(requestId())
         try {
             const path = c.req.param("path")
             const storage = c.env.BUCKET
-            const res = await storage.get(path)
+            const res = await storage.get("prepro"+path)
             return c.json(res)
         }
         catch (e) {
