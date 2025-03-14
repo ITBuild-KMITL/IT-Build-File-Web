@@ -8,6 +8,20 @@
       "when": 1741114234670,
       "tag": "0000_equal_psylocke",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1741963651834,
+      "tag": "0001_gifted_rhodey",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1741967114163,
+      "tag": "0002_quick_synch",
+      "breakpoints": true
     }
   ]
 }

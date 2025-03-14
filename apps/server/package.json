@@ -2,7 +2,7 @@
   "name": "server",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev ./src/index.ts",
+    "dev": "wrangler dev ./src/index.ts --remote",
     "build": "vite build",
     "preview": "wrangler pages dev",
     "deploy": "bun run build && wrangler pages deploy"
@@ -19,6 +19,6 @@
     "@libsql/client": "^0.14.0",
     "drizzle-kit": "^0.30.5",
     "vite": "^6.1.1",
-    "wrangler": "^3.109.2"
+    "wrangler": "3.114.1"
   }
 }

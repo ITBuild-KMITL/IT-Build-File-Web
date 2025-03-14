@@ -1,0 +1,5 @@
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+FRONTEND_URL="http://localhost:3000"
+BACKEND_URL="http://localhost:8787"
+JWT_SECRET=""
