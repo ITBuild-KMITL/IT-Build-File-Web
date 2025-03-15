@@ -71,7 +71,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
 
             let userid = isExited[0].id;
 
-            return c.json({ isExited });
+            // return c.json({ isExited });
 
             if (isExited[0].count == 0) {
                 const createdAccount = await db.insert(accountTable).values({
@@ -105,7 +105,8 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 maxAge: 60 * 60 * 24 * 30,
             })
 
-            return c.redirect(c.env.FRONTEND_URL + '/profile');
+            return c.json({ jwt });
+            // return c.redirect(c.env.FRONTEND_URL + '/profile');
         }
 
 
