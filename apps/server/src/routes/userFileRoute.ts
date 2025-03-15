@@ -3,7 +3,7 @@ import { requestId } from 'hono/request-id'
 import { authMiddleware } from "../middleware/authMiddleware";
 import { drizzle } from "drizzle-orm/d1";
 import { storageTable } from "../../db/schema/storage";
-import { desc, eq } from "drizzle-orm";
+import { and, count, desc, eq, is, isNull } from "drizzle-orm";
 
 export const userFileRoute = new Hono<{ Bindings: Env }>()
     .use(requestId())
@@ -12,13 +12,21 @@ export const userFileRoute = new Hono<{ Bindings: Env }>()
             const perPage = parseInt(c.req.param("perPage") || "10")
             const page = parseInt(c.req.param("page") || "1")
             const db = drizzle(c.env.DB)
+            const allFilesCount = await db.select({ count: count() }).from(storageTable).where(and(eq(storageTable.accountId, c.get("jwtPayload").sub), isNull(storageTable.deletedAt)))
             const files = await db.select()
                 .from(storageTable)
-                .where(eq(storageTable.accountId, c.get("jwtPayload").sub))
+                .where(and(eq(storageTable.accountId, c.get("jwtPayload").sub),isNull(storageTable.deletedAt)))
                 .orderBy(desc(storageTable.createdAt))
                 .limit(perPage)
                 .offset((page - 1) * perPage)
-            return c.json({data:files});
+            return c.json({
+                files: files, 
+                pagination: {
+                    total: allFilesCount[0].count,
+                    perPage,
+                    page
+                }
+             });
         }
         catch (e) {
             console.log(e);
@@ -29,6 +37,14 @@ export const userFileRoute = new Hono<{ Bindings: Env }>()
         try {
             const storage = c.env.BUCKET
             const path = c.req.param("path")
+            const db = drizzle(c.env.DB)
+            const file_data = await db.select().from(storageTable).where(eq(storageTable.path, path))
+            if (file_data.length === 0) {
+                return c.json({ message: "File not found" }, 404);
+            }
+            if (file_data[0].deletedAt) {
+                return c.json({ message: "File was delete" }, 404);
+            }
             const res = await storage.get(path)
             if (!res) {
                 return c.json({ message: "File not found" }, 404);
@@ -47,7 +63,7 @@ export const userFileRoute = new Hono<{ Bindings: Env }>()
             const storage = c.env.BUCKET
             const db = drizzle(c.env.DB)
             if (file instanceof File) {
-                const path = "user-" + c.get("requestId") + file.name
+                const path = "user-" + c.get("requestId") + new URLSearchParams(file.name).toString()
                 const res = await storage.put(path, file)
                 await db.insert(storageTable).values({
                     accountId: c.get("jwtPayload").sub,
@@ -62,7 +78,7 @@ export const userFileRoute = new Hono<{ Bindings: Env }>()
             return c.json({ message: "Error", e }, 500);
         }
     })
-    .delete("/:id", authMiddleware, async (c) => {
+    .get("delete/:id", authMiddleware, async (c) => {
         try {
             const storage = c.env.BUCKET
             const db = drizzle(c.env.DB)

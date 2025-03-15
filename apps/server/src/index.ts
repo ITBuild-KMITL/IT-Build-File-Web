@@ -10,7 +10,7 @@ export interface Variables {
 
 const app = new Hono<{Bindings:Env, Variables : Variables}>()
 
-app.use('/*', corsMiddleware)
+app.use('*', corsMiddleware)
 
 app.route('/auth/google', googleAuthRoute)
 app.route('/file', userFileRoute)
