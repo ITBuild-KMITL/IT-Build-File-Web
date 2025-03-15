@@ -6,6 +6,7 @@ import { accountTable, usersTable } from "../../db/db";
 import { jwt, sign } from "hono/jwt";
 import { log } from "console";
 import { setCookie } from "hono/cookie";
+import axios from "axios";
 
 export const googleAuthRoute = new Hono<{ Bindings: Env }>()
     .get("/", (c) => {
@@ -37,19 +38,20 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 throw new Error('No code provided');
             }
 
-            const tokenResponse = await fetch(GOOGLE_TOKEN_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
+            const tokenResponse = await axios.post(GOOGLE_TOKEN_ENDPOINT,
+                new URLSearchParams({
                     code: code,
                     client_id: c.env.GOOGLE_CLIENT_ID,
                     client_secret: c.env.GOOGLE_CLIENT_SECRET,
                     redirect_uri: c.env.BACKEND_URL + '/auth/google/callback',
                     grant_type: 'authorization_code',
                 }),
-            });
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            );
 
             return c.json({ tokenResponse : tokenResponse.json() , req : tokenResponse.headers , code , ok : tokenResponse.ok , status : tokenResponse.status });
 
