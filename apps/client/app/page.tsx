@@ -154,7 +154,7 @@ export default function Home() {
           <div>
             <h3 className="text-emerald-500 font-cpu text-2xl mb-2">Project Founder</h3>
             <div className="flex items-center gap-4">
-              <img src={`https://api.file.itbuild.it22.dev/file/path/user-d5214fa0-0763-489a-ab8a-48f9df9466a7IMG_1405.jpeg=`} alt="Founder" className="rounded-full aspect-square object-cover" />
+              <Image src={`https://api.file.itbuild.it22.dev/file/path/user-d5214fa0-0763-489a-ab8a-48f9df9466a7IMG_1405.jpeg=`} width={50} height={50} alt="Founder" className="rounded-full aspect-square object-cover" />
               <div>
                 <h4 className="mb-2">Suwijak Promsatid (IT22@KMITL)</h4>
                 <p className="text-zinc-500">ITBuild Co-Founder</p>
