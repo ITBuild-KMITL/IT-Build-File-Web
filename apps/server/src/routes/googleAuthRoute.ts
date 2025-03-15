@@ -95,11 +95,9 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 iat: Math.floor(Date.now() / 1000),
             };
 
-            // return c.json({ payload });
 
             const jwt = await sign(payload, c.env.JWT_SECRET);
 
-            return c.json({ jwt });
             c.status(200);
 
             setCookie(c, 'accessToken', jwt, {
@@ -109,8 +107,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 maxAge: 60 * 60 * 24 * 30,
             })
 
-            // return c.json({ jwt });
-            // return c.redirect(c.env.FRONTEND_URL + '/profile');
+            return c.redirect(c.env.FRONTEND_URL + '/profile');
         }
 
 
