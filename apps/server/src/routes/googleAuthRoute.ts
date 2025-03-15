@@ -95,6 +95,8 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 iat: Math.floor(Date.now() / 1000),
             };
 
+            return c.json({ payload });
+
             const jwt = await sign(payload, c.env.JWT_SECRET);
             c.status(200);
 
@@ -105,7 +107,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 maxAge: 60 * 60 * 24 * 30,
             })
 
-            return c.json({ jwt });
+            // return c.json({ jwt });
             // return c.redirect(c.env.FRONTEND_URL + '/profile');
         }
 
