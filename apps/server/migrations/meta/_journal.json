@@ -22,6 +22,13 @@
       "when": 1741967114163,
       "tag": "0002_quick_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1742051589954,
+      "tag": "0003_elite_shinko_yamashiro",
+      "breakpoints": true
     }
   ]
 }

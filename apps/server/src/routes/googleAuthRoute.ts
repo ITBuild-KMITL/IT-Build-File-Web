@@ -86,6 +86,8 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                     userProfileURL: userData.picture,
                 }).returning()
 
+                const updateAccountID = await db.update(accountTable).set({ userId: createdUser[0].id }).where(eq(accountTable.id, createdAccount[0].id)).returning();
+
                 userid = createdUser[0].id;
             }
 
