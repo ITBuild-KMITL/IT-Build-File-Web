@@ -27,7 +27,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
 
     .get("/callback", async (c) => {
         const code = c.req.query("code")
-        return c.json({ code });
+        // return c.json({ code });
         const db = drizzle(c.env.DB);
 
         try {
@@ -50,6 +50,8 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                     grant_type: 'authorization_code',
                 }),
             });
+
+            return c.json({ tokenResponse : tokenResponse.json() });
 
             if (!tokenResponse.ok) {
                 throw new Error('Failed to get access token');
