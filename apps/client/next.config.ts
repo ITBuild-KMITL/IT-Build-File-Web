@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         hostname: 'api.file.itbuild.it22.dev',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        port:'8787',
+        hostname: 'localhost',
+        pathname: '/**',
+      }
     ],
   }
 };

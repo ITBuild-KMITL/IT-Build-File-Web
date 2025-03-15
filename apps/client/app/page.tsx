@@ -17,8 +17,7 @@ export interface FileResponse {
 }
 
 export default function Home() {
-
-  const { profile } = useContext(AuthContext)
+  const { profile } = useContext(AuthContext);
 
   const [file, setFile] = useState([]);
   const [allFilesCount, setAllFilesCount] = useState(0);
@@ -36,7 +35,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (!profile) return; {
+    if (!profile) return;
+    {
       getFile();
     }
   }, [profile]);
@@ -62,7 +62,6 @@ export default function Home() {
           </p>
           <div className="flex items-center gap-4">
             {!profile ? (
-
               <Link
                 href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
                 className="bg-emerald-500 text-white py-2 px-6 rounded-md hover:bg-emerald-600"
@@ -142,19 +141,42 @@ export default function Home() {
             </Link>
           </div>
           <div className="mb-10">
-            <h3 className="text-emerald-500 font-cpu text-2xl mb-2">My Stack</h3>
+            <h3 className="text-emerald-500 font-cpu text-2xl mb-2">
+              My Stack
+            </h3>
             <ul className="list-disc list-inside marker:text-emerald-500">
-              <li><span className="text-emerald-500">Fontend :</span> NextJS</li>
-              <li><span className="text-emerald-500">Backend :</span> Hono</li>
-              <li><span className="text-emerald-500">Database :</span> Cloudflare D1</li>
-              <li><span className="text-emerald-500">Storage :</span> Cloudflare R2</li>
-              <li><span className="text-emerald-500">Deployment :</span>  Cloudflare Page</li>
+              <li>
+                <span className="text-emerald-500">Fontend :</span> NextJS
+              </li>
+              <li>
+                <span className="text-emerald-500">Backend :</span> Hono
+              </li>
+              <li>
+                <span className="text-emerald-500">Database :</span> Cloudflare
+                D1
+              </li>
+              <li>
+                <span className="text-emerald-500">Storage :</span> Cloudflare
+                R2
+              </li>
+              <li>
+                <span className="text-emerald-500">Deployment :</span>{" "}
+                Cloudflare Page
+              </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-emerald-500 font-cpu text-2xl mb-2">Project Founder</h3>
+            <h3 className="text-emerald-500 font-cpu text-2xl mb-2">
+              Project Founder
+            </h3>
             <div className="flex items-center gap-4">
-              <Image src={`https://api.file.itbuild.it22.dev/file/path/user-d5214fa0-0763-489a-ab8a-48f9df9466a7IMG_1405.jpeg=`} width={50} height={50} alt="Founder" className="rounded-full aspect-square object-cover" />
+              <Image
+                src={`https://api.file.itbuild.it22.dev/file/path/user-d5214fa0-0763-489a-ab8a-48f9df9466a7IMG_1405.jpeg=`}
+                width={50}
+                height={50}
+                alt="Founder"
+                className="rounded-full aspect-square object-cover"
+              />
               <div>
                 <h4 className="mb-2">Suwijak Promsatid (IT22@KMITL)</h4>
                 <p className="text-zinc-500">ITBuild Co-Founder</p>
