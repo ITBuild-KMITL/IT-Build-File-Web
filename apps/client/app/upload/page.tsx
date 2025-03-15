@@ -50,8 +50,8 @@ export default function Page() {
                 </div>
                 <input ref={inputFile} type="file" className="hidden" onChange={(e) => setFile(e.target.files?.[0] || "")} />
                 <div className="flex flex-col gap-2">
-                    <button onClick={() => { inputFile.current!.click() }} className=" text-black py-2 px-6 rounded-md border border-zinc-300 hover:opacity-50">เลือกไฟล์</button>
-                    <button onClick={uploadFile} disabled={!(file instanceof Blob)} className="bg-emerald-500 text-white py-2 px-6 rounded-md uppercase hover:bg-emerald-400 mb-2 disabled:opacity-50 disabled:hover:bg-emerald-500">{loading ? `${loadingProgress}%` : 'Upload'}</button>
+                    <button onClick={() => { inputFile.current!.click() }} className=" text-black py-2 px-6 rounded-md border border-zinc-300 hover:opacity-50 max-w-full">{file ? file.name || "" : "เลือกไฟล์"}</button>
+                    <button onClick={uploadFile} disabled={!(file instanceof Blob)} className={`bg-emerald-500 text-white py-2 px-6 rounded-md uppercase hover:bg-emerald-400 mb-2 disabled:opacity-50 disabled:hover:bg-emerald-500 ${loading && "animate-pulse"}`}>{loading ? `${loadingProgress}%` : 'Upload'}</button>
                 </div>
                 {errorMsg && <p className="text-red-500">{errorMsg}</p>}
                 {successMsg && <Link href={` ${process.env.NEXT_PUBLIC_API_URL}/file/path/${successMsg}`} target="_blank" className="text-emerald-500">{` ${process.env.NEXT_PUBLIC_API_URL}/file/path/${successMsg}`}</Link>}

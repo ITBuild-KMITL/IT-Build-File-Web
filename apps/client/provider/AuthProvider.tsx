@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { createContext } from "react";
 import { api } from "@/utils/api";
 
-const AuthContext = createContext({});
+const AuthContext = createContext({ profile: null });
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
     const [profile, setProfile] = useState(null)
