@@ -53,11 +53,6 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 }
             );
 
-
-            if (!tokenResponse.ok) {
-                throw new Error('Failed to get access token');
-            }
-
             const tokenData: { access_token: string } = await tokenResponse.data;
             const accessToken = tokenData.access_token;
 
