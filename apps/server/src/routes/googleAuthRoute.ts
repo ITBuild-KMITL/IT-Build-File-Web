@@ -53,69 +53,69 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 }
             );
 
-            return c.json({ tokenResponse : tokenResponse.json() , req : tokenResponse.headers , code , ok : tokenResponse.ok , status : tokenResponse.status });
+            return c.json({ tokenResponse , req : tokenResponse.headers , code , status : tokenResponse.status });
 
-            if (!tokenResponse.ok) {
-                throw new Error('Failed to get access token');
-            }
+            // if (!tokenResponse.ok) {
+            //     throw new Error('Failed to get access token');
+            // }
 
-            const tokenData: { access_token: string } = await tokenResponse.json();
-            const accessToken = tokenData.access_token;
+        //     const tokenData: { access_token: string } = await tokenResponse.json();
+        //     const accessToken = tokenData.access_token;
 
-            const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
+        //     const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        //         method: 'GET',
+        //         headers: {
+        //             'Authorization': `Bearer ${accessToken}`
+        //         }
+        //     });
 
-            const userData: GoogleUserData = await response.json();
+        //     const userData: GoogleUserData = await response.json();
 
-            return c.json({userData});
+        //     return c.json({userData});
 
-            const isExited = await db.select({ count: count() , id:accountTable.id }).from(accountTable).where(eq(accountTable.googleId, userData.sub));
+        //     const isExited = await db.select({ count: count() , id:accountTable.id }).from(accountTable).where(eq(accountTable.googleId, userData.sub));
 
-            let userid = isExited[0].id;
+        //     let userid = isExited[0].id;
 
-            if (isExited[0].count == 0 ) { 
-                const createdAccount = await db.insert(accountTable).values({
-                    googleId: userData.sub,
-                }).returning()
+        //     if (isExited[0].count == 0 ) { 
+        //         const createdAccount = await db.insert(accountTable).values({
+        //             googleId: userData.sub,
+        //         }).returning()
 
-                const createdUser = await db.insert(usersTable).values({
-                    accountId: createdAccount[0].id,
-                    email: userData.email,
-                    firstName: userData.given_name,
-                    lastName: userData.family_name,
-                    userProfileURL: userData.picture,
-                }).returning()
+        //         const createdUser = await db.insert(usersTable).values({
+        //             accountId: createdAccount[0].id,
+        //             email: userData.email,
+        //             firstName: userData.given_name,
+        //             lastName: userData.family_name,
+        //             userProfileURL: userData.picture,
+        //         }).returning()
 
-                userid = createdUser[0].id;
-            }
+        //         userid = createdUser[0].id;
+        //     }
 
-            const payload = {
-                sub: userid,
-                exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30),
-                iat : Math.floor(Date.now() / 1000),
-            };
+        //     const payload = {
+        //         sub: userid,
+        //         exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30),
+        //         iat : Math.floor(Date.now() / 1000),
+        //     };
 
-            const jwt = await sign(payload, c.env.JWT_SECRET);
-            c.status(200);
+        //     const jwt = await sign(payload, c.env.JWT_SECRET);
+        //     c.status(200);
 
-            setCookie(c , 'accessToken', jwt, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'none',
-                maxAge: 60 * 60 * 24 * 30,
-            })
+        //     setCookie(c , 'accessToken', jwt, {
+        //         httpOnly: true,
+        //         secure: true,
+        //         sameSite: 'none',
+        //         maxAge: 60 * 60 * 24 * 30,
+        //     })
 
-            return c.redirect(c.env.FRONTEND_URL + '/profile');
-        }
-        catch (e) {
-            if (e instanceof Error) {
-                c.status(400);
-                return c.json({ error: e.message });
-            }
-            console.log(e)
-        }
+        //     return c.redirect(c.env.FRONTEND_URL + '/profile');
+        // }
+        // catch (e) {
+        //     if (e instanceof Error) {
+        //         c.status(400);
+        //         return c.json({ error: e.message });
+        //     }
+        //     console.log(e)
+        // }
     })
