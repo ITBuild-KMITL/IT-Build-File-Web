@@ -95,9 +95,11 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
                 iat: Math.floor(Date.now() / 1000),
             };
 
-            return c.json({ payload });
+            // return c.json({ payload });
 
             const jwt = await sign(payload, c.env.JWT_SECRET);
+
+            return c.json({ jwt });
             c.status(200);
 
             setCookie(c, 'accessToken', jwt, {
