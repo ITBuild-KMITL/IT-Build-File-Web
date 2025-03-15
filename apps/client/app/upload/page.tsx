@@ -8,7 +8,7 @@ import { useRef, useState } from "react";
 export default function Page() {
   const inputFile = useRef<HTMLInputElement>(null);
 
-  const [file, setFile] = useState<Blob | string>("");
+  const [file, setFile] = useState<File | string>("");
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -67,7 +67,7 @@ export default function Page() {
             }}
             className=" text-black py-2 px-6 rounded-md border border-zinc-300 hover:opacity-50 max-w-full"
           >
-            {file ? file.name || "" : "เลือกไฟล์"}
+            {file instanceof File ? file.name : "เลือกไฟล์"}
           </button>
           <button
             onClick={uploadFile}
