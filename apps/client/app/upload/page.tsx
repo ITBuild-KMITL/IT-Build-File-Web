@@ -4,7 +4,6 @@ import { api } from "@/utils/api";
 import { AxiosError } from "axios";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { File } from "node:buffer"
 
 export default function Page() {
 
