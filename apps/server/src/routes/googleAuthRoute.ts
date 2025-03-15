@@ -27,6 +27,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
 
     .get("/callback", async (c) => {
         const code = c.req.query("code")
+        return c.json({ code });
         const db = drizzle(c.env.DB);
 
         try {
