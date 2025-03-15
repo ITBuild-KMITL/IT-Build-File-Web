@@ -40,6 +40,7 @@ export default function FileComponent({
     }
 
     function handleDownload(file: FileResponse): void {
+        setLoading(true);
         const downloadUrl = `${process.env.NEXT_PUBLIC_API_URL}/file/path/${file.path}`;
         const fileName = file.fileName;
 
@@ -58,7 +59,13 @@ export default function FileComponent({
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
             })
-            .catch((error) => console.error("Error downloading file:", error));
+            .catch((error) => console.error("Error downloading file:", error))
+            .finally(() => {
+                setTimeout(() => {
+                    setLoading(false);
+                }
+                , 300);
+            })
     }
 
     return (

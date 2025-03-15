@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Github } from "lucide-react";
 import Image from "next/image";
 import { AuthContext } from "@/provider/AuthProvider";
+import { loadContext } from "@/provider/LoadingProvider";
 
 export interface FileResponse {
   id: string;
@@ -18,6 +19,7 @@ export interface FileResponse {
 
 export default function Home() {
   const { profile } = useContext(AuthContext);
+  const { loading, setLoading } = useContext(loadContext);
 
   const [file, setFile] = useState([]);
   const [allFilesCount, setAllFilesCount] = useState(0);
@@ -25,12 +27,19 @@ export default function Home() {
   const [page, setPage] = useState(1);
 
   async function getFile() {
+    setLoading(true);
     try {
-      const data = await api.get("/file/list");
+      const data = await api.get("/file/list?page=" + page + "&perPage=" + perPage);
       setFile(data.data.files);
       setAllFilesCount(data.data.pagination.total);
     } catch (e) {
       console.log(e);
+    }
+    finally {
+      setTimeout(() => {
+        setLoading(false);
+      }
+      , 300);
     }
   }
 
@@ -87,6 +96,7 @@ export default function Home() {
       </div>
       <div className="container mx-auto px-4 py-10">
         <div className="space-y-2 mb-4">
+          {!profile ? (
           <p className="text-red-500 mb-6">
             You have to{" "}
             <Link
@@ -97,6 +107,11 @@ export default function Home() {
             </Link>{" "}
             first.
           </p>
+          ): (
+              <p className="text-yellow-500 mb-6">
+                You are login as {profile.user?.firstName}
+              </p>
+          )}
           <h1 className="text-2xl md:text-4xl font-cpu text-emerald-500">
             Your file{" "}
             <span className="text-black text-xl md:text-2xl">

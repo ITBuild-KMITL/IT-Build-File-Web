@@ -1,22 +1,32 @@
 "use client";
 
+import { loadContext } from "@/provider/LoadingProvider";
 import { api } from "@/utils/api";
 import { AxiosError } from "axios";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 export default function Page() {
+
+  const { loading, setLoading } = useContext(loadContext);
+
   const inputFile = useRef<HTMLInputElement>(null);
 
   const [file, setFile] = useState<File | string>("");
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loadingAPI, setLoadingAPI] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
+  useEffect(() => {
+    if (loadingProgress === 100) {
+      setLoading(true)
+    }
+   }, [loadingProgress]);
+
   async function uploadFile() {
     try {
-      setLoading(true);
+      setLoadingAPI(true);
       const formdata = new FormData();
       formdata.append("file", file as Blob);
       const data = await api.post("/file", formdata, {
@@ -30,12 +40,18 @@ export default function Page() {
         },
       });
       setSuccessMsg(data.data.path);
+      await setLoading(true);
+    
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorMsg(e.message);
       }
     } finally {
-      setLoading(false);
+
+      setTimeout(() => { 
+        setLoading(false);
+        setLoadingAPI(false);
+      }, 300);
     }
   }
 
@@ -72,9 +88,9 @@ export default function Page() {
           <button
             onClick={uploadFile}
             disabled={!(file instanceof Blob)}
-            className={`bg-emerald-500 text-white py-2 px-6 rounded-md uppercase hover:bg-emerald-400 mb-2 disabled:opacity-50 disabled:hover:bg-emerald-500 ${loading && "animate-pulse"}`}
+            className={`bg-emerald-500 text-white py-2 px-6 rounded-md uppercase hover:bg-emerald-400 mb-2 disabled:opacity-50 disabled:hover:bg-emerald-500 ${loadingAPI && "animate-pulse"}`}
           >
-            {loading ? `${loadingProgress}%` : "Upload"}
+            {loadingAPI ? `${loadingProgress}%` : "Upload"}
           </button>
         </div>
         {errorMsg && <p className="text-red-500">{errorMsg}</p>}
