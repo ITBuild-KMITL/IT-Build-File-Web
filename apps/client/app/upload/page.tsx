@@ -10,7 +10,7 @@ export default function Page() {
 
     const inputFile = useRef<HTMLInputElement>(null);
 
-    const [file, setFile] = useState<File | string>("");
+    const [file, setFile] = useState<Blob | string>("");
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
