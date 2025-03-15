@@ -29,6 +29,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      vercel:
+        specifier: ^41.4.1
+        version: 41.4.1
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.0.14
