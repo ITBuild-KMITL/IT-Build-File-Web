@@ -20,5 +20,8 @@
     "apps/*",
     "packages/*"
   ],
-    "packageManager": "pnpm@8.6.3"
+  "packageManager": "pnpm@8.6.3",
+  "dependencies": {
+    "drizzle-kit": "^0.30.5"
+  }
 }

@@ -186,7 +186,7 @@ export default function Home() {
             </h3>
             <div className="flex items-center gap-4">
               <Image
-                src={`https://api.file.itbuild.it22.dev/file/path/user-d5214fa0-0763-489a-ab8a-48f9df9466a7IMG_1405.jpeg=`}
+                src={`https://api.file.itbuild.it22.dev/file/path/user-dd1effca-221a-45e4-a21d-106071de7a8bCreate+Next+App+Image+1405.jpeg=`}
                 width={50}
                 height={50}
                 alt="Founder"
