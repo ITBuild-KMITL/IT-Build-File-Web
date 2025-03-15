@@ -5,7 +5,7 @@
     "dev": "wrangler dev ./src/index.ts --remote",
     "build": "vite build",
     "preview": "wrangler pages dev",
-    "deploy": "bun run build && wrangler pages deploy"
+    "deploy": "pnpm run build && wrangler pages deploy"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
