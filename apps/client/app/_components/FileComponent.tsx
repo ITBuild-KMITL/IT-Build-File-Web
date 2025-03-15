@@ -5,6 +5,8 @@ import { FileResponse } from "../page";
 import { api } from "@/utils/api";
 import Image from "next/image";
 import { File } from "lucide-react";
+import { loadContext } from "@/provider/LoadingProvider";
+import { useContext } from "react";
 
 export default function FileComponent({
     file,
@@ -12,13 +14,17 @@ export default function FileComponent({
 }: {
     file: FileResponse;
     getFile: () => void;
-}) {
+    }) {
+    
+    const { loading, setLoading } = useContext(loadContext);
+    
     const photoExtendtion = ["jpg", "jpeg", "png", "gif", "svg"];
 
     interface HandleDownloadEvent
         extends React.MouseEvent<HTMLAnchorElement, MouseEvent> { }
 
     async function deleteFile(id: string): Promise<void> {
+        setLoading(true);
         try {
             const confirm = window.confirm("คุณต้องการลบไฟล์นี้ใช่หรือไม่?");
             if (!confirm) return;
@@ -27,6 +33,9 @@ export default function FileComponent({
             console.log(e);
         } finally {
             getFile();
+            setTimeout(() => { 
+                setLoading(false);
+            }, 300);
         }
     }
 
