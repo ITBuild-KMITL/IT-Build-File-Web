@@ -34,7 +34,7 @@ import { api } from "@/utils/api";
 const AuthContext = createContext<{ profile: UserWithAccount | null }>({ profile: null });
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-    const [profile, setProfile] = useState<UserWithAccount>({})
+    const [profile, setProfile] = useState<UserWithAccount | null>(null)
 
     useEffect(() => {
         getProfile()
