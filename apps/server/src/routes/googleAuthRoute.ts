@@ -66,7 +66,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
             const userData: GoogleUserData = await response.json();
 
             // return c.json({userData});
-            
+
             const isExited = await db.select({ count: count(), id: accountTable.id }).from(accountTable).where(eq(accountTable.googleId, userData.sub));
 
             let userid = isExited[0].id;
@@ -88,7 +88,7 @@ export const googleAuthRoute = new Hono<{ Bindings: Env }>()
 
                 const updateAccountID = await db.update(accountTable).set({ userId: createdUser[0].id }).where(eq(accountTable.id, createdAccount[0].id)).returning();
 
-                userid = createdUser[0].id;
+                userid = createdAccount[0].id;
             }
 
             const payload = {
