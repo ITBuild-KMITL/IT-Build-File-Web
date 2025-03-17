@@ -147,7 +147,7 @@ export default function Home() {
               <Github /> View on Github
             </Link>
             <Link
-              href={"https:build.it22.dev"}
+              href={"https://build.it22.dev"}
               target="_blank"
               className="bg-white hover:opacity-75 text-black py-2 px-4 rounded-sm inline-flex gap-2 items-center"
             >
