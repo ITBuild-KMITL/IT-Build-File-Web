@@ -30,8 +30,8 @@ export default function ShareModal({ url , setShare }: { url: string; setShare: 
                     <QRCode value={url} />
                 </div>
                 <div className="flex items-center gap-2">
-                    <input type="text" readOnly onClick={haddleShare} className="flex-1 w-full focus:outline-emerald-400 focus:outline-1 outline-transparent border border-zinc-300 rounded-sm py-1 px-2" value={url} />
-                    <button onClick={shareLink} className="border-zinc-300 border p-1 rounded-sm hover:text-emerald-500 hover:border-emerald-500" ><Share /></button>
+                    <input type="text" readOnly onClick={haddleShare} className="h-11 flex-1 w-full focus:outline-emerald-400 focus:outline-1 outline-transparent border border-zinc-300 rounded-sm py-1 px-2" value={url} />
+                    <button onClick={shareLink} className="h-11 aspect-square flex items-center justify-center border-zinc-300 border p-1 rounded-sm hover:text-emerald-500 hover:border-emerald-500" ><Share /></button>
                 </div>
             </div>
         </div>

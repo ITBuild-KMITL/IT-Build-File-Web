@@ -122,8 +122,8 @@ export default function FileComponent({
                     </div>
                 </div>
                 <div className="border-t pt-4 border-zinc-300 flex items-center gap-2">
-                    <input type="text" readOnly onClick={haddleShare} className="flex-1 w-full focus:outline-emerald-400 focus:outline-1 outline-transparent border border-zinc-300 rounded-sm py-1 px-2" value={`${process.env.NEXT_PUBLIC_API_URL}/file/path/${file.path}`} />
-                    <button onClick={() => { setShare(true) }} className="border-zinc-300 border p-1 rounded-sm hover:text-emerald-500 hover:border-emerald-500" ><Share /></button>
+                    <input type="text" readOnly onClick={haddleShare} className="h-11 flex-1 w-full focus:outline-emerald-400 focus:outline-1 outline-transparent border border-zinc-300 rounded-sm py-1 px-2" value={`${process.env.NEXT_PUBLIC_API_URL}/file/path/${file.path}`} />
+                    <button onClick={() => { setShare(true) }} className="h-11 aspect-square flex items-center justify-center border-zinc-300 border p-1 rounded-sm hover:text-emerald-500 hover:border-emerald-500" ><Share /></button>
                 </div>
             </div>
         </>
