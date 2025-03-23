@@ -69,25 +69,25 @@ export default function Home() {
             มีเว็บแต่ไม่มีที่เก็บไฟล์? จะ Contribute it22.dev
             แต่ไม่มีที่เก็บไฟล์
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap justify-center">
             {!profile ? (
               <Link
                 href={`${process.env.NEXT_PUBLIC_API_URL}/auth/google`}
-                className="bg-emerald-500 text-white py-2 px-6 rounded-md hover:bg-emerald-600"
+                className="bg-emerald-500 text-white py-2 px-6 rounded-md hover:bg-emerald-600 text-nowrap"
               >
                 เข้าสู่ระบบ
               </Link>
             ) : (
               <Link
                 href={`/upload`}
-                className="bg-emerald-500 text-white py-2 px-6 rounded-md hover:bg-emerald-600"
+                  className="bg-emerald-500 text-white py-2 px-6 rounded-md hover:bg-emerald-600 text-nowrap"
               >
                 อัปโหลดไฟล์
               </Link>
             )}
             <Link
               href={`https://build.it22.dev`}
-              className="bg-white text-black py-2 px-6 rounded-md hover:opacity-75 uppercase"
+              className="bg-white text-black py-2 px-6 rounded-md hover:opacity-75 uppercase text-nowrap"
             >
               itbuild space
             </Link>
@@ -137,11 +137,11 @@ export default function Home() {
             เว็บไซต์นี้เปิดโค้ด และหากคุณสนใจที่จะพัฒนาชุมชน และ เว็บไซต์
             คุณสามารถร่วม Contribute Project นี้ หรือเข้าร่วม ITBuild ได้
           </p>
-          <div className="flex items-center gap-4 mb-10">
+          <div className="flex items-center gap-4 mb-10 flex-wrap">
             <Link
               href={"https://github.com/ITBuild-KMITL/IT-Build-File-Web"}
               target="_blank"
-              className="bg-black hover:opacity-75 text-white py-2 px-4 rounded-sm inline-flex gap-2 items-center"
+              className="bg-black hover:opacity-75 text-white py-2 px-4 rounded-sm inline-flex gap-2 items-center text-nowrap"
             >
               {" "}
               <Github /> View on Github
@@ -149,7 +149,7 @@ export default function Home() {
             <Link
               href={"https://build.it22.dev"}
               target="_blank"
-              className="bg-white hover:opacity-75 text-black py-2 px-4 rounded-sm inline-flex gap-2 items-center"
+              className="bg-white hover:opacity-75 text-black py-2 px-4 rounded-sm inline-flex gap-2 items-center text-nowrap"
             >
               {" "}
               ITBuild Space
