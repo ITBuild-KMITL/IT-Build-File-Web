@@ -4,6 +4,7 @@ import { accountTable } from "./account";
 
 export const storageTable = sqliteTable("storage", {
     id: int().primaryKey({ autoIncrement: true }),
+    accountType: text({enum: ["account", "app"]}).notNull().default("account"),
     accountId: int().notNull(),
     fileName : text().notNull(),
     path: text().notNull(),

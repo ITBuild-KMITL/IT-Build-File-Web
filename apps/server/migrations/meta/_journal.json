@@ -29,6 +29,20 @@
       "when": 1742051589954,
       "tag": "0003_elite_shinko_yamashiro",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1753195342836,
+      "tag": "0004_modern_riptide",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1753195733237,
+      "tag": "0005_white_power_pack",
+      "breakpoints": true
     }
   ]
 }

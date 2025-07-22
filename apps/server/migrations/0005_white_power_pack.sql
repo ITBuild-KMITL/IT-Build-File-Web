@@ -1,0 +1,1 @@
+ALTER TABLE `storage` ADD `accountType` text DEFAULT 'account' NOT NULL;
