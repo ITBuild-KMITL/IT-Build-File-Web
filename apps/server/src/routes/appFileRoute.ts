@@ -61,6 +61,9 @@ export const appFileRoute = new Hono<{ Bindings: Env }>()
         try {
             const body = await c.req.parseBody()
             const file: File | string = body['file']
+            if(!file) {
+                return c.json({ message: "No file provided" }, 400);
+            }
             const storage = c.env.BUCKET
             const db = drizzle(c.env.DB)
             if (file instanceof File) {
